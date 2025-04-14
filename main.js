@@ -1,6 +1,6 @@
-import { startCombat } from './core/combat.js';
+import { startCombat } from './combat.js';
 import { ITEMS } from './data/items.js';
-import { renderResult } from './ui/render.js';
+import { renderResult } from './render.js';
 
 document.getElementById("start-btn").addEventListener("click", () => {
   console.log("Button clicked!");
