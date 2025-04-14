@@ -54,7 +54,7 @@ button:hover {
   border: 1px solid white;
   overflow-y: auto; /* Enable scrolling if content exceeds max-height */
   white-space: pre-wrap; /* Preserve whitespace and line breaks */
-  max-height: 250px; /*Prevent the log box from growing indefinitely*/
+  max-height: 800px; /*Prevent the log box from growing indefinitely*/
   transition: max-height 0.3s ease; /* Smooth height transition */
 }
 
