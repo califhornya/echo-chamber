@@ -152,5 +152,5 @@ export const ITEMS = {
     shield: false,
 
     nextTrigger: 0
-  }
+}
 };
