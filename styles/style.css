@@ -1,0 +1,93 @@
+body { 
+  font-family: sans-serif; 
+  padding: 2rem; 
+  background-color: black; 
+  color: white; 
+}
+
+#log {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ccc;
+  height: auto;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+#logs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+button {
+  background-color: white;
+  color: black;
+  border: 1px solid white;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-bottom: 35px;
+}
+
+button:hover {
+  background-color: gray;
+  color: white;
+}
+
+.log-box {
+  border: 1px solid white;
+  background-color: #333; /* Dark gray for contrast */
+  color: white;
+  padding: 10px;
+  margin-bottom: 20px; /* Add spacing between log boxes */
+}
+
+.log-box h2 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+}
+
+.log-content {
+  background-color: #222; /* Slightly lighter black for contrast */
+  color: white;
+  padding: 10px;
+  border: 1px solid white;
+  overflow-y: auto; /* Enable scrolling if content exceeds max-height */
+  white-space: pre-wrap; /* Preserve whitespace and line breaks */
+  max-height: 250px; /*Prevent the log box from growing indefinitely*/
+  transition: max-height 0.3s ease; /* Smooth height transition */
+}
+
+.log-message.freeze {
+  color: lightblue;
+}
+
+.log-message.damage {
+  color: red;
+}
+
+.log-message.wins {
+  color: lightgreen;
+  font-weight: bold;
+}
+
+.log-message.heal {
+  color: greenyellow;
+  font-weight: bold;
+}
+
+.log-message.shield {
+  color: yellow;
+  font-weight: bold;
+}
+
+.log-message.checking {
+    color: #4f4f4f;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.log-message.trigger,
+.log-message.sumup {
+    color: #787878;
+}

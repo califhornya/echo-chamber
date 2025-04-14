@@ -1,0 +1,36 @@
+{
+  "name": "",
+  "size": "Small",
+  "cooldown": 0,
+  "ammo": null,
+  "value": 0,
+  "trigger": "Cooldown",
+  "target": "enemy",
+  "damage": 0,
+  "heal": 0,
+  "shield": 0,
+  "poison": 0,
+  "burn": 0,
+  "slow": {
+    "targets": 0,
+    "duration": 0
+  },
+  "freeze": {
+    "targets": 0,
+    "duration": 0
+  },
+  "haste": {
+    "targets": 0,
+    "duration": 0
+  },
+  "critChance": 0,
+  "multicast": 0,
+  "enchantments": [],
+  "passiveEffects": [],
+  "adjacencyBonuses": [],
+  "isFrozen": false,
+  "nextUnfreeze": null,
+  "nextTrigger": 0,
+  "currentCooldown": 0,
+  "currentAmmo": null
+}
