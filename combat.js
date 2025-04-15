@@ -81,6 +81,18 @@ export function startCombat(player, monster) {
 function triggerItem(item, source, target) {
   logToPage(`${item.name} triggered on ${target.name}`);
 
+  // Check if the item has a dynamic shield calculation
+  if (item.calculateShield) {
+    const totalShield = item.calculateShield(source); // Calculate the dynamic shield value
+    source.shield += totalShield; // Apply the shield to the owner
+    logToPage(`${source.name} gains ${totalShield} Shield from ${item.name}.`);
+  }
+
+  // Check if the item has a shield bonus effect
+  if (item.applyShieldBonus) {
+    item.applyShieldBonus(source); // Apply the shield bonus to the owner's items
+  }
+
   // Apply damage if the item does damage
   if (item.damage) {
     let damageToApply = item.damage;
@@ -220,7 +232,7 @@ function endCombat(player, monster) {
   // potrei resettare qui il game per lo start seguente
 }
 
-function applySlowEffect(targets, duration, numTargets) {
+/* function applySlowEffect(targets, duration, numTargets) {
   let affected = 0;
   for (let target of targets) {
     if (affected < numTargets) {
@@ -238,6 +250,16 @@ function applyHasteEffect(targets, duration, numTargets) {
       affected++;
     }
   }
+} */
+
+function applyHealEffect(owner, healAmount) {
+  owner.hp += healAmount; // Increase the owner's HP
+  logToPage(`${owner.name} heals for ${healAmount} HP.`);
+}
+
+function applyShieldEffect(owner, shieldAmount) {
+  owner.shield += shieldAmount; // Increase the owner's shield value
+  logToPage(`${owner.name} gains a shield of ${shieldAmount}.`);
 }
 
 function logToPage(message) {
@@ -296,14 +318,4 @@ function createNewLogBox() {
 
   // Append the new log box to the container
   logsContainer.appendChild(logBox);
-}
-
-function applyHealEffect(owner, healAmount) {
-  owner.hp += healAmount; // Increase the owner's HP
-  logToPage(`${owner.name} heals for ${healAmount} HP.`);
-}
-
-function applyShieldEffect(owner, shieldAmount) {
-  owner.shield += shieldAmount; // Increase the owner's shield value
-  logToPage(`${owner.name} gains a shield of ${shieldAmount}.`);
 }

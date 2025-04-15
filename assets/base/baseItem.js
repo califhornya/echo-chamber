@@ -1,7 +1,7 @@
 const baseItem = {
     name: "null",
     type: "null",
-    rarity: "null",
+    tier: "Bronze",
     cost: 0,
     cooldown: 0,
     size: 1,
