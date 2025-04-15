@@ -16,8 +16,6 @@ function updateItemCooldown(item, currentTime, owner, target) {
   if (currentTime >= item.nextTrigger) {
     logToPage(`${item.name} is triggering.`);
     triggerItem(item, owner, target);
-    item.nextTrigger = currentTime + item.cooldown; // Reset cooldown
-    logToPage(`${item.name} next trigger updated to ${item.nextTrigger}`);
   }
 }
 
@@ -77,22 +75,41 @@ export function startCombat(player, monster) {
   }, 1000); // Update every second (1s = 1000ms)
 }
 
+export function combatCoconutCrab(player, coconutCrab) {
+  // Create a new log box for this combat session
+  createNewLogBox();
+
+  logToPage("Combat Started with Coconut Crab!");
+
+  // Reset time to 0 for a new combat session
+  time = 0;
+
+  // Reset item states for all items
+  [...player.items, ...coconutCrab.items].forEach(item => {
+    item.nextTrigger = time + item.cooldown; // Set the first trigger time based on cooldown
+    item.nextUnfreeze = null; // Reset freeze state
+  });
+
+  // Start the combat loop
+  combatInterval = setInterval(() => {
+    updateCombatState(player, coconutCrab);
+
+    // Increment time after each step
+    time += step;
+
+    // Check if combat should end (either player or Coconut Crab is dead)
+    if (player.hp <= 0 || coconutCrab.hp <= 0) {
+      endCombat(player, coconutCrab); // End combat if someone's health reaches 0
+      clearInterval(combatInterval); // Stop the combat loop
+    }
+  }, 1000); // Update every second (1s = 1000ms)
+}
+
 // Function to trigger an item effect (damage, freeze, heal, etc.)
 function triggerItem(item, source, target) {
   logToPage(`${item.name} triggered on ${target.name}`);
 
-  // Check if the item has a dynamic shield calculation
-  if (item.calculateShield) {
-    const totalShield = item.calculateShield(source); // Calculate the dynamic shield value
-    source.shield += totalShield; // Apply the shield to the owner
-    logToPage(`${source.name} gains ${totalShield} Shield from ${item.name}.`);
-  }
-
-  // Check if the item has a shield bonus effect
-  if (item.applyShieldBonus) {
-    item.applyShieldBonus(source); // Apply the shield bonus to the owner's items
-  }
-
+  
   // Apply damage if the item does damage
   if (item.damage) {
     let damageToApply = item.damage;
@@ -153,7 +170,9 @@ function triggerItem(item, source, target) {
     applyShieldEffect(source, item.shield);
   }
 
-  // Apply other effects (e.g., haste, slow) as needed here
+  // Update the next trigger time for the item
+  item.nextTrigger = time + item.cooldown; // Properly increment nextTrigger
+  logToPage(`${item.name} next trigger updated to ${item.nextTrigger}`);
 }
 
 // Apply freeze effect on items (update pendingFreeze duration)

@@ -1,10 +1,9 @@
-import baseItem from "../base/baseItem.js";
+import { baseItem } from "../../base/baseItem.js";
 
 const seaShell = {
     ...baseItem,
     name: "Sea Shell",
     type: "Acquatic",
-    tier: "Bronze",
     cost: 2,
     cooldown: 6,
     target: "self",
@@ -19,6 +18,11 @@ const seaShell = {
         const totalShield = this.shield + (additionalAcquaticItems * 10);
 
         logToPage(`${this.name} gains an additional ${additionalAcquaticItems * 10} Shield from other Acquatic items.`);
+
+        // Update the next trigger time for Sea Shell
+        this.nextTrigger = time + this.cooldown;
+        logToPage(`${this.name} next trigger updated to ${this.nextTrigger}`);
+
         return totalShield;
     }
 };

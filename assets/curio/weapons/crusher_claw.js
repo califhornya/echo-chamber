@@ -1,10 +1,10 @@
-import { baseItem } from "../base/baseItem.js";
+import { baseItem } from "../../base/baseItem.js";
 
 const crusherClaw = {
     ...baseItem,
     name: "Crusher's Claw",
     type: "Acquatic",
-    cooldown: 3,
+    cooldown: 9,
     size: 2,
     trigger: "Cooldown",
     target: "enemy",
@@ -14,8 +14,9 @@ const crusherClaw = {
         Gold: { shieldBonus: 6 },
         Diamond: { shieldBonus: 8 }
     },
+    effect: "scalingDamage" // Reference to the effect logic
 
-    // Function to set the item's tier
+    /* // Function to set the item's tier
     setTier: function (userTier) {
         if (this.tierValues[userTier]) {
             this.tier = userTier; // Update the tier
@@ -23,9 +24,9 @@ const crusherClaw = {
         } else {
             logToPage(`Invalid tier: ${userTier}`);
         }
-    },
+    }, */
 
-    // Function to apply the shield bonus to all shield items
+    /* // Function to apply the shield bonus to all shield items
     applyShieldBonus: function (owner) {
         const bonus = this.tierValues[this.tier].shieldBonus; // Get the shield bonus based on the tier
         owner.items.forEach(item => {
@@ -34,22 +35,36 @@ const crusherClaw = {
                 logToPage(`${item.name} gains +${bonus} Shield from ${this.name}.`);
             }
         });
-    },
 
-    // Dynamic effect logic specific of this item
-    scalingDamage: (owner, target) => {
-        // Calculate damage based on the highest shield value of the owner's items, like the effect of this item says
-        // "Deals damage equal to the highest shield value of your items"
+        // Update the next trigger time for Crusher's Claw
+        this.nextTrigger = time + this.cooldown;
+        logToPage(`${this.name} next trigger updated to ${this.nextTrigger}`);
+    }, */
+
+    /* // Dynamic effect logic specific to this item
+    scalingDamage: function (owner, target) {
+        // Find the highest shield value among the owner's items
         const highestShield = owner.items.reduce((max, item) => {
-        return item.shield > max ? item.shield : max;
+            // Ensure the item has a valid shield value
+            if (item.shield && typeof item.shield === "number") {
+                return item.shield > max ? item.shield : max;
+            }
+            return max;
         }, 0);
 
+        // Log the calculated damage
+        logToPage(`${this.name} calculates damage based on the highest shield value of the owner's items: ${highestShield}`);
+
+        // Update the next trigger time for Crusher's Claw
+        this.nextTrigger = time + this.cooldown;
+        logToPage(`${this.name} next trigger updated to ${this.nextTrigger}`);
+
         return {
-        damage: highestShield, // Dynamic damage
-        heal: 0, // No healing
-        shield: 0 // No shielding
+            damage: highestShield, // Dynamic damage based on the highest shield value
+            heal: 0, // No healing
+            shield: 0 // No shielding
         };
-    }
+    } */
 };
 
-export default crusherClaw;
+export default crusherClaw; 

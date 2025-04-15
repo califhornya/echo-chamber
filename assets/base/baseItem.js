@@ -33,4 +33,6 @@ const baseItem = {
 
     ammo: 0, // For items with limited uses
     enchantment: "null" // e.g. "Heavy", "Icy", "Turbo" etc.
-}
+};
+
+export { baseItem }; // Export baseItem

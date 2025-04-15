@@ -123,14 +123,14 @@ export const ITEMS = {
     nextTrigger: 0
   },
 
-  DeadlyClub: {
-    name: "Deadly Club",
-    cooldown: 1,
+  SmallShield: {
+    name: "Small Shield",
+    cooldown: 3,
     size: 1,
     trigger: "Cooldown",
-    target: "enemyItem",
+    target: "selfItem",
 
-    damage: 8,
+    damage: 0,
     poison: 0,
     burn: 0,
 
@@ -149,8 +149,8 @@ export const ITEMS = {
 
     crit: 0,
     heal: false,
-    shield: false,
+    shield: 1,
 
     nextTrigger: 0
-}
+  }
 };
