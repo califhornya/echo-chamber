@@ -8,9 +8,21 @@
 </head>
 <body>
   <h1>Bazaar Combat Simulator</h1>
-  <button class="startbutton" id="start-btn">Start Combat</button>
+  <div class="button-container">
+    <button class="startbutton" id="start-btn">Start Combat</button>
+    <button class="testbutton" id="test-basic-btn">Test Basic Combat</button>
+    <button class="testbutton" id="test-aquatic-btn">Test Aquatic Combat</button>
+    <button class="testbutton" id="test-multiple-btn">Test Multiple Items</button>
+  </div>
   <div id="logs-container"></div>
 
   <script type="module" src="./main.js"></script>
+  <script type="module">
+    import { testBasicCombat, testAquaticCombat, testMultipleItems } from './test_combat.js';
+    
+    document.getElementById("test-basic-btn").addEventListener("click", testBasicCombat);
+    document.getElementById("test-aquatic-btn").addEventListener("click", testAquaticCombat);
+    document.getElementById("test-multiple-btn").addEventListener("click", testMultipleItems);
+  </script>
 </body>
 </html>
