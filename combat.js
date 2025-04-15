@@ -1,3 +1,5 @@
+import { processItemMechanics } from './utils/item-processor.js';
+
 let time = 0;
 const step = 1;
 let combatInterval = null;
@@ -108,6 +110,9 @@ export function combatCoconutCrab(player, coconutCrab) {
 // Function to trigger an item effect (damage, freeze, heal, etc.)
 function triggerItem(item, source, target) {
   logToPage(`${item.name} triggered on ${target.name}`);
+
+  // Process the item according to the deep mechanics
+  processItemMechanics(item, source, target);
 
   let damageToApply = 0;
   

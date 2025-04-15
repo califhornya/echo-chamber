@@ -1,6 +1,5 @@
 import { startCombat } from './combat.js';
 import { combatCoconutCrab } from './combat.js';
-import { startSimpleCombat } from './simple_combat.js';
 import { ITEMS } from './data/items.js';
 import { renderResult } from './render.js';
 import { BAZAAR } from './data/bazaar.js'; 
@@ -42,9 +41,7 @@ document.getElementById("start-btn").addEventListener("click", () => {
     items: [BAZAAR.crusher_claw, ITEMS.SmallShield]
   }; */
 
-  // Use the simplified combat system
-  const result = startSimpleCombat(player, monster);
-  /* const result = startCombat(player, monster); */
+  const result = startCombat(player, monster);
   /* const result = combatCoconutCrab(player, coconutCrab); */
   renderResult(result);
 });
