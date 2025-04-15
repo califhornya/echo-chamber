@@ -3,7 +3,7 @@ import { baseItem } from "../../base/baseItem.js";
 const crusherClaw = {
     ...baseItem,
     name: "Crusher's Claw",
-    type: "Acquatic",
+    type: "Aquatic",
     cooldown: 9,
     size: 2,
     trigger: "Cooldown",
@@ -14,7 +14,43 @@ const crusherClaw = {
         Gold: { shieldBonus: 6 },
         Diamond: { shieldBonus: 8 }
     },
-    effect: "scalingDamage" // Reference to the effect logic
+    tier: "Bronze", // Default tier
+
+    // First apply shield bonuses
+    applyShieldBonus: function(owner) {
+        const bonus = this.tierValues[this.tier].shieldBonus;
+        owner.items.forEach(item => {
+            if (item.shield && typeof item.shield === "number") {
+                item.shield += bonus;
+                logToPage(`${item.name} gains +${bonus} Shield from ${this.name}`);
+            }
+        });
+    },
+
+    // Calculate damage based on highest shield value
+    calculateDamage: function(owner) {
+        // Find the highest shield value among all items
+        const highestShield = owner.items.reduce((max, item) => {
+            if (item.shield && typeof item.shield === "number") {
+                return Math.max(max, item.shield);
+            }
+            return max;
+        }, 0);
+
+        // Update the damage value
+        this.damage = highestShield;
+        return this.damage;
+    },
+
+    // Override the trigger function
+    onTrigger: function(owner, target) {
+        this.calculateDamage(owner);
+        return {
+            damage: this.damage,
+            heal: 0,
+            shield: 0
+        };
+    }
 
     /* // Function to set the item's tier
     setTier: function (userTier) {

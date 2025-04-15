@@ -6,7 +6,7 @@ export const ITEMS = {
     trigger: "Cooldown",
     target: "enemy",
 
-    damage: 10,
+    damage: 20,
     poison: 0,
     burn: 0,
 
@@ -68,7 +68,7 @@ export const ITEMS = {
     trigger: "Cooldown",
     target: "enemy",
 
-    damage: 12,
+    damage: 24,
     poison: 0,
     burn: 0,
 
@@ -149,7 +149,7 @@ export const ITEMS = {
 
     crit: 0,
     heal: false,
-    shield: 1,
+    shield: 65,
 
     nextTrigger: 0
   }

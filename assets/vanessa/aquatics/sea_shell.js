@@ -3,7 +3,7 @@ import { baseItem } from "../../base/baseItem.js";
 const seaShell = {
     ...baseItem,
     name: "Sea Shell",
-    type: "Acquatic",
+    type: "Aquatic",
     cost: 2,
     cooldown: 6,
     target: "self",

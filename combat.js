@@ -109,11 +109,22 @@ export function combatCoconutCrab(player, coconutCrab) {
 function triggerItem(item, source, target) {
   logToPage(`${item.name} triggered on ${target.name}`);
 
+  let damageToApply = 0;
   
-  // Apply damage if the item does damage
-  if (item.damage) {
-    let damageToApply = item.damage;
+  // Handle dynamic damage calculation if item has onTrigger method
+  if (item.onTrigger) {
+    const effect = item.onTrigger(source, target);
+    if (effect.damage) {
+      damageToApply = effect.damage;
+    }
+  } 
+  // Handle regular damage items
+  else if (item.damage) {
+    damageToApply = item.damage;
+  }
 
+  // Apply damage if there is any (either from onTrigger or regular damage)
+  if (damageToApply > 0) {
     // If the target has a shield, reduce the damage by the shield value
     if (target.shield > 0) {
       if (damageToApply <= target.shield) {
@@ -123,14 +134,15 @@ function triggerItem(item, source, target) {
         damageToApply -= target.shield;
         target.shield = 0;
       }
-      let shieldAbsorbed = item.damage - damageToApply;
+      let shieldAbsorbed = item.onTrigger ? item.damage : item.damage - damageToApply;
       logToPage(`${target.name}'s shield absorbs ${shieldAbsorbed} damage. Remaining shield: ${target.shield}`);
     }
 
     // Apply remaining damage to HP
     if (damageToApply > 0) {
       target.hp -= damageToApply;
-      logToPage(`${target.name} takes ${damageToApply} damage.`);
+      const damageSource = item.onTrigger ? " (based on highest shield value)" : "";
+      logToPage(`${target.name} takes ${damageToApply} damage from ${item.name}${damageSource}.`);
     }
   }
 
